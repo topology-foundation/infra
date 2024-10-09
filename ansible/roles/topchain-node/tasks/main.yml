@@ -1,0 +1,15 @@
+---
+# Clone Topchain repository from GitHub with specified branch or tag.
+- name: Clone Topchain repository
+  ansible.builtin.git:
+    repo: 'https://github.com/topology-foundation/topchain-node.git'
+    dest: /opt/topchain-node
+    version: dockerfile  # Specify the branch or tag you want to clone.
+    single_branch: yes
+
+# Run the topchain-node docker container.
+- name: Run the topchain-node docker container.
+  shell: |
+    cd /opt/topchain-node &&
+    docker build -t topchain-node . &&
+    docker run -itd --name my-topchain-node topchain-node
